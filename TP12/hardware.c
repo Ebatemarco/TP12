@@ -28,77 +28,28 @@ int ExportPin(char* pin)
     fclose(handle_export);  // Be carefulldo this for EACH pin !!!
 }
 
-int DirectionOutPin(char* pin)
+int DirectionOutPin(const char* pin)
 {
     FILE * handle_direction;
     int nWritten;
-    switch(pin)
-    {        
-        case "27":
-            if((handle_direction= fopen("/sys/class/gpio/gpio27/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "22":
-            if((handle_direction= fopen("/sys/class/gpio/gpio22/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "25":
-            if((handle_direction= fopen("/sys/class/gpio/gpio25/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "24":
-            if((handle_direction= fopen("/sys/class/gpio/gpio24/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "23":
-            if((handle_direction= fopen("/sys/class/gpio/gpio23/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "18":
-            if((handle_direction= fopen("/sys/class/gpio/gpio18/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "4":
-            if((handle_direction= fopen("/sys/class/gpio/gpio4/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        case "17":
-            if((handle_direction= fopen("/sys/class/gpio/gpio17/direction","w")) == NULL)
-            {
-                printf("Cannot open DIRECTION File");
-                exit(1);
-            }// Set pin Direction
-            break;
-        default:
-            printf("Cannot find DIRECTION File");
-            exit(1);
-            break;    
-    }    
+    if(pin==NULL)
+    {
+        printf("Invalid pointer");
+        exit(1);
+    }
+    handle_direction= fopen(pin,"w");
+    if(handle_direction== NULL)
+    {
+        printf("Cannot open DIRECTION File");
+        exit(1);
+    }// Set pin Direction
+    
+                
+        
     if ((nWritten=fputs("out",handle_direction))==-1)
     {
         printf("Cannot open DIRECTION pin. Try again later.\n");
-        exit(1);
+        exit(-1);
     }
     else
     {
@@ -107,48 +58,53 @@ int DirectionOutPin(char* pin)
     fclose(handle_direction); // Be carefulldo this for EACH pin !!!
 }
 
-int ValuePinLow(char* pin)
+int ValuePinLow(const char* pin)
 {
     FILE * handle;
+    int fputstatus=0;
     int nWritten;
-    
-    if ((handle = fopen(pin,"w")) == NULL)
+    handle = fopen(pin,"w");
+    if ( handle == NULL)
     {
         printf("Cannot open device. Try again later.\n");
-        exit(1);
+        exit(-1);
     }
     else
     {
         printf("Device successfully opened\n");
     }
-    if(fputc('0' ,handle)==-1) // Set pin low
+    fputstatus=fputc('0' ,handle);
+    if(fputstatus==-1) // Set pin low
     {
         printf("Clr_Pin: Cannot write to file. Try again later.\n");
-        exit(1);
+        exit(-1);
     }
     else
         printf("Write to file %s successfully done.\n",pin);
     fclose(handle);
 }
 
-int ValuePinUp(char* pin)
+int ValuePinUp(const char* pin)
 {
     FILE * handle;
+    int fputstatus=0;
     int nWritten;
     
-    if ((handle = fopen(pin,"w")) == NULL)
+    handle = fopen(pin,"w");
+    if ( handle == NULL)
     {
         printf("Cannot open device. Try again later.\n");
-        exit(1);
+        exit(-1);
     }
     else
     {
         printf("Device successfully opened\n");
     }
-    if(fputc('1' ,handle)==-1) // Set pin up
+    fputstatus=fputc('1' ,handle);
+    if(fputstatus==-1) // Set pin up
     {
         printf("Clr_Pin: Cannot write to file. Try again later.\n");
-        exit(1);
+        exit(-1);
     }
     else
         printf("Write to file %s successfully done.\n",pin);

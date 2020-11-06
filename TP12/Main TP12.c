@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "emuladordepuertos.h"
+#include "hardware.h" 
+
 
 int switchcase (char bit, char puerto);
 //cambia el estado del bit al opuesto
@@ -28,7 +30,33 @@ int main(int argc, char** argv)
                         "/sys/class/gpio/gpio18/value","/sys/class/gpio/gpio23/value",
                         "/sys/class/gpio/gpio24/value","/sys/class/gpio/gpio25/value",
                         "/sys/class/gpio/gpio22/value","/sys/class/gpio/gpio27/value"};
+    
+    char* pinesdirection[]={"/sys/class/gpio/gpio17/direction","/sys/class/gpio/gpio4/direction",
+                        "/sys/class/gpio/gpio18/direction","/sys/class/gpio/gpio23/direction",
+                        "/sys/class/gpio/gpio24/direction","/sys/class/gpio/gpio25/direction",
+                        "/sys/class/gpio/gpio22/direction","/sys/class/gpio/gpio27/direction"};
     int pinactual;
+    
+    //inicializacion de pins
+    
+    ExportPin("17");
+    ExportPin("4");
+    ExportPin("18");
+    ExportPin("23");
+    ExportPin("24");
+    ExportPin("25");
+    ExportPin("22");
+    ExportPin("27");
+    
+    for (int i=0; i<8; i++)
+    {
+        DirectionOutPin(pinesdirection[i]);
+    }
+
+    
+
+
+            
     while (((c=getchar())!='q')||(error==-1)) 
     {
      switch (c) //me fijo que ingreso el usuario
@@ -67,37 +95,149 @@ int main(int argc, char** argv)
              } 
              break;
          case '0': //prendo el bit 0
-             switchcase (0, PORTA);
-             led_state (PORTA);
+             
+              if(bitGet(PORTA, 0)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio27/value");
+                    }
+                    else if(bitGet(PORTA, 0)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio27/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+              switchcase (0, PORTA);
              
              break;
          case '1': //prendo el bit 1
-            switchcase (1, PORTA);
-             led_state (PORTA);
+            
+             if(bitGet(PORTA, 1)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio22/value");
+                    }
+                    else if(bitGet(PORTA, 1)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio22/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+             switchcase (1, PORTA);
              break;
          case '2': 
+             
+             if(bitGet(PORTA, 2)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio25/value");
+                    }
+                    else if(bitGet(PORTA, 2)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio25/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
              switchcase (2, PORTA);
-             led_state (PORTA);
              break;
          case '3': 
+             
+             if(bitGet(PORTA, 3)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio24/value");
+                    }
+                    else if(bitGet(PORTA, 3)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio24/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
              switchcase (3, PORTA);
-             led_state (PORTA);
              break;
          case '4':
-             switchcase (4, PORTA);
-             led_state (PORTA);
+             
+         if(bitGet(PORTA, 0)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio23/value");
+                    }
+                    else if(bitGet(PORTA, 4)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio23/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+         switchcase (4, PORTA);
              break;
          case '5': 
-             switchcase (5,PORTA);
-             led_state (PORTA);
+             
+            if(bitGet(PORTA, 5)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio18/value");
+                    }
+                    else if(bitGet(PORTA, 5)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio18/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+            switchcase (5,PORTA);
              break;
          case '6': 
-             switchcase (6, PORTA);
-             led_state (PORTA);
+             
+              if(bitGet(PORTA, 6)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio4/value");
+                    }
+                    else if(bitGet(PORTA, 6)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio4/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+              switchcase (6, PORTA);
              break;
          case '7':
-             switchcase (7, PORTA);
-             led_state (PORTA);
+             
+            if(bitGet(PORTA, 7)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow("/sys/class/gpio/gpio17/value");
+                    }
+                    else if(bitGet(PORTA, 7)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp("/sys/class/gpio/gpio17/value");
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+            switchcase (7, PORTA);
              break;
          default: break;
      }

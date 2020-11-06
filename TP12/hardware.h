@@ -13,9 +13,9 @@
 
 int ExportPin(char* pin);
 
-int DirectionOutPin(char* pin);
+int DirectionOutPin(const char* pin);
 
-int ValuePinLow(char* pin);
+int ValuePinLow(const char* pin);
 
-int ValuePinUp(char* pin);
+int ValuePinUp(const char* pin);
 
