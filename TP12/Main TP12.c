@@ -21,27 +21,55 @@ int switchcase (char bit, char puerto);
 
 int main(int argc, char** argv) 
 {
-
+    char pines[8]={17,4,18,23,24,25,22,27};
+    int error;
     char c; 
-    while ((c=getchar())!='q') 
+    char* pinesvalue[]={"/sys/class/gpio/gpio17/value","/sys/class/gpio/gpio4/value",
+                        "/sys/class/gpio/gpio18/value","/sys/class/gpio/gpio23/value",
+                        "/sys/class/gpio/gpio24/value","/sys/class/gpio/gpio25/value",
+                        "/sys/class/gpio/gpio22/value","/sys/class/gpio/gpio27/value"};
+    int pinactual;
+    while (((c=getchar())!='q')||(error==-1)) 
     {
      switch (c) //me fijo que ingreso el usuario
      {
          case 't': //cambio los bits al estado opuesto
              maskToggle(PORTA, 0xFF); 
              led_state (PORTA);
+             for(pinactual=7; pinactual>=0;pinactual--)//Vemos cada bit
+                    {
+                        switch(bitGet(PORTA, pinactual))//En base a el estado del bit
+                        {        
+                            case 0: //Si esta apagado lo encendemos
+                                error = ValuePinLow(pinesvalue[pinactual]);
+                                break;
+                            case 1://Si esta encendido lo apagamos
+                                error = ValuePinUp(pinesvalue[pinactual]);
+                                break;
+                            default: break;        
+                        }   
+                    }
              break;
          case 'c': //apago todos los bits
              maskOff (PORTA, 0xFF);
              led_state (PORTA);
+             for(pinactual=7; pinactual>=0;pinactual--)//Apagamos todo
+             {
+                error = ValuePinLow(pinesvalue[pinactual]);
+             } 
              break;
          case 's': //prendo todos los bits
              maskOn (PORTA, 0xFF);
              led_state (PORTA);
+             for(pinactual=7; pinactual>=0;pinactual--)//Apagamos todo
+             {
+                error = ValuePinUp(pinesvalue[pinactual]);
+             } 
              break;
          case '0': //prendo el bit 0
              switchcase (0, PORTA);
              led_state (PORTA);
+             
              break;
          case '1': //prendo el bit 1
             switchcase (1, PORTA);
@@ -73,6 +101,11 @@ int main(int argc, char** argv)
              break;
          default: break;
      }
+     if(error==-1)
+     {
+        printf("FATAL ERROR ABORT RUN");
+     }
+         
     }
     return (EXIT_SUCCESS); 
 }

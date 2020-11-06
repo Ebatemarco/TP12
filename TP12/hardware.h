@@ -11,19 +11,11 @@
  * Created on 6 de noviembre de 2020, 15:41
  */
 
-#ifndef HARDWARE_H
-#define HARDWARE_H
+int ExportPin(char* pin);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+int DirectionOutPin(char* pin);
 
+int ValuePinLow(char* pin);
 
-
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* HARDWARE_H */
+int ValuePinUp(char* pin);
 
