@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "emuladordepuertos.h"
 #include "hardware.h" 
-//#include "termlib.h"
+#include "termlib.h"
 
 int switchcase (char bit, char puerto);
 //cambia el estado del bit al opuesto
@@ -24,7 +24,7 @@ int tecla (char caracter, const char* arr);
 
 int main(int argc, char** argv) 
 {
-    //changemode (BUFFERED_OFF);
+    changemode (BUFFERED_OFF);
     char pines[8]={17,4,18,23,24,25,22,27};
     int error;
     char c; 
@@ -132,7 +132,7 @@ int main(int argc, char** argv)
      }
          
     }
-    //changemode (BUFFERED_ON); 
+    changemode (BUFFERED_ON); 
     return (EXIT_SUCCESS); 
 }
 

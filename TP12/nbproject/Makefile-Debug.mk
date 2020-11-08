@@ -35,10 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/5d8126cf/termlib.o \
 	${OBJECTDIR}/Main\ TP12.o \
 	${OBJECTDIR}/emuladordepuertos.o \
-	${OBJECTDIR}/hardware.o
+	${OBJECTDIR}/hardware.o \
+	${OBJECTDIR}/termlib.o
 
 
 # C Compiler Flags
@@ -65,11 +65,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tp12: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tp12 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/5d8126cf/termlib.o: ../../../../termlib.c
-	${MKDIR} -p ${OBJECTDIR}/_ext/5d8126cf
-	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags glib-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5d8126cf/termlib.o ../../../../termlib.c
-
 .NO_PARALLEL:${OBJECTDIR}/Main\ TP12.o
 ${OBJECTDIR}/Main\ TP12.o: Main\ TP12.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -85,6 +80,11 @@ ${OBJECTDIR}/hardware.o: hardware.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g `pkg-config --cflags glib-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hardware.o hardware.c
+
+${OBJECTDIR}/termlib.o: termlib.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags glib-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/termlib.o termlib.c
 
 # Subprojects
 .build-subprojects:
