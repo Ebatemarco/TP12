@@ -37,18 +37,15 @@ int main(int argc, char** argv)
                         "/sys/class/gpio/gpio18/direction","/sys/class/gpio/gpio23/direction",
                         "/sys/class/gpio/gpio24/direction","/sys/class/gpio/gpio25/direction",
                         "/sys/class/gpio/gpio22/direction","/sys/class/gpio/gpio27/direction"};
+    char* pinesvaluestring[]={"17","4","18","23","24","25","22","27"};
     int pinactual;
     
     //inicializacion de pins
     
-    ExportPin("17");
-    ExportPin("4");
-    ExportPin("18");
-    ExportPin("23");
-    ExportPin("24");
-    ExportPin("25");
-    ExportPin("22");
-    ExportPin("27");
+    for (int i=0; i<8; i++)
+    {
+        ExportPin(pinesvaluestring[i]);
+    }
     
     for (int i=0; i<8; i++)
     {
@@ -151,12 +148,12 @@ int tecla (char caracter, const char* arr)
               if(bitGet(PORTA, caracter)==1)
                     {
                         led_state (PORTA);
-                        error = ValuePinLow(arr); 
+                        error = ValuePinUp(arr); 
                     }
               else if(bitGet(PORTA, caracter)==0)
                     {
                         led_state (PORTA);
-                       error = ValuePinUp(arr);
+                       error = ValuePinLow(arr);
                     }
                     else
                     {
