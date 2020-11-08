@@ -129,6 +129,12 @@ int main(int argc, char** argv)
      }
          
     }
+    
+    for (int i=0; i<8; i++)
+    {
+        UnExportPin(pinesvaluestring[i]);
+    }
+    
     changemode (BUFFERED_ON); 
     return (EXIT_SUCCESS); 
 }

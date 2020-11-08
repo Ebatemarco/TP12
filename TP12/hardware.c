@@ -111,3 +111,22 @@ int ValuePinUp(const char* pin)
     fclose(handle);
 }
 
+int UnExportPin(char* pin)
+{
+    FILE *handle_export;
+    int nWritten;
+    if((handle_export=  fopen("/sys/class/gpio/unexport","w")) == NULL)
+    {
+        printf("Cannot open UNEXPORT File. Try again later.\n");
+        exit(1);
+    }
+    nWritten=fputs(pin,handle_export);
+    if(nWritten==-1)
+    {
+        printf("Cannot UNEXPORT PIN . Try again later.\n");
+        exit(1);
+    }
+    else
+        printf("EXPORT File opened succesfully\n");
+    fclose(handle_export);  // Be carefulldo this for EACH pin !!!
+}

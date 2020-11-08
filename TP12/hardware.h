@@ -19,3 +19,4 @@ int ValuePinLow(const char* pin);
 
 int ValuePinUp(const char* pin);
 
+int UnExportPin(char* pin);
