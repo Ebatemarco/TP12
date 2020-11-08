@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>emuladordepuertos.h</itemPath>
       <itemPath>hardware.h</itemPath>
+      <itemPath>../../../../termlib.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,6 +18,7 @@
       <itemPath>Main TP12.c</itemPath>
       <itemPath>emuladordepuertos.c</itemPath>
       <itemPath>hardware.c</itemPath>
+      <itemPath>../../../../termlib.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -45,6 +47,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="../../../../termlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../../../../termlib.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Main TP12.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="emuladordepuertos.c" ex="false" tool="0" flavor2="0">
@@ -76,6 +82,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="../../../../termlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../../../../termlib.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Main TP12.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="emuladordepuertos.c" ex="false" tool="0" flavor2="0">

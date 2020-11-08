@@ -15,14 +15,16 @@
 #include <stdlib.h>
 #include "emuladordepuertos.h"
 #include "hardware.h" 
-
+//#include "termlib.h"
 
 int switchcase (char bit, char puerto);
 //cambia el estado del bit al opuesto
 
+int tecla (char caracter, const char* arr); 
 
 int main(int argc, char** argv) 
 {
+    //changemode (BUFFERED_OFF);
     char pines[8]={17,4,18,23,24,25,22,27};
     int error;
     char c; 
@@ -52,10 +54,6 @@ int main(int argc, char** argv)
     {
         DirectionOutPin(pinesdirection[i]);
     }
-
-    
-
-
             
     while (((c=getchar())!='q')||(error==-1)) 
     {
@@ -94,152 +92,39 @@ int main(int argc, char** argv)
                 error = ValuePinUp(pinesvalue[pinactual]);
              } 
              break;
-         case '0': //prendo el bit 0
-             
-              if(bitGet(PORTA, 0)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio27/value");
-                    }
-                    else if(bitGet(PORTA, 0)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio27/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-              switchcase (0, PORTA);
-             
+              case '0': //prendo el bit 0
+       
+             tecla (0,pinesvalue[0]);
              break;
-         case '1': //prendo el bit 1
-            
-             if(bitGet(PORTA, 1)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio22/value");
-                    }
-                    else if(bitGet(PORTA, 1)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio22/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-             switchcase (1, PORTA);
+        case '1': //prendo el bit 0
+       
+             tecla (1,pinesvalue[1]);
              break;
-         case '2': 
-             
-             if(bitGet(PORTA, 2)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio25/value");
-                    }
-                    else if(bitGet(PORTA, 2)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio25/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-             switchcase (2, PORTA);
+        case '2': //prendo el bit 0
+       
+             tecla (2,pinesvalue[2]);
+             break;   
+        case '3': //prendo el bit 0
+       
+             tecla (3,pinesvalue[3]);
+             break; 
+        case '4': //prendo el bit 0
+       
+             tecla (4,pinesvalue[4]);
              break;
-         case '3': 
-             
-             if(bitGet(PORTA, 3)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio24/value");
-                    }
-                    else if(bitGet(PORTA, 3)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio24/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-             switchcase (3, PORTA);
+        case '5': //prendo el bit 0
+       
+             tecla (5,pinesvalue[5]);
              break;
-         case '4':
-             
-         if(bitGet(PORTA, 0)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio23/value");
-                    }
-                    else if(bitGet(PORTA, 4)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio23/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-         switchcase (4, PORTA);
+        case '6': //prendo el bit 0
+       
+             tecla (6,pinesvalue[6]);
+             break; 
+        case '7': //prendo el bit 0
+       
+             tecla (7,pinesvalue[7]);
              break;
-         case '5': 
-             
-            if(bitGet(PORTA, 5)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio18/value");
-                    }
-                    else if(bitGet(PORTA, 5)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio18/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-            switchcase (5,PORTA);
-             break;
-         case '6': 
-             
-              if(bitGet(PORTA, 6)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio4/value");
-                    }
-                    else if(bitGet(PORTA, 6)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio4/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-              switchcase (6, PORTA);
-             break;
-         case '7':
-             
-            if(bitGet(PORTA, 7)==1)
-                    {
-                        led_state (PORTA);
-                        error = ValuePinLow("/sys/class/gpio/gpio17/value");
-                    }
-                    else if(bitGet(PORTA, 7)==0)
-                    {
-                        led_state (PORTA);
-                       error = ValuePinUp("/sys/class/gpio/gpio17/value");
-                    }
-                    else
-                    {
-                        led_state (PORTA);
-                    }
-            switchcase (7, PORTA);
-             break;
-         default: break;
+         default: break;     
      }
      if(error==-1)
      {
@@ -247,6 +132,7 @@ int main(int argc, char** argv)
      }
          
     }
+    //changemode (BUFFERED_ON); 
     return (EXIT_SUCCESS); 
 }
 
@@ -258,3 +144,23 @@ int switchcase (char bit , char puerto)
         bitSet (puerto, bit); //lo prendo
 }
 
+int tecla (char caracter, const char* arr)
+{
+    int error;
+      switchcase (caracter, PORTA);
+              if(bitGet(PORTA, caracter)==1)
+                    {
+                        led_state (PORTA);
+                        error = ValuePinLow(arr); 
+                    }
+              else if(bitGet(PORTA, caracter)==0)
+                    {
+                        led_state (PORTA);
+                       error = ValuePinUp(arr);
+                    }
+                    else
+                    {
+                        led_state (PORTA);
+                    }
+      return error;
+}
