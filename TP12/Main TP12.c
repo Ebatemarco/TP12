@@ -11,11 +11,19 @@
  * Created on 6 de noviembre de 2020, 15:39
  */
 
+#define _DEFAULT_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "emuladordepuertos.h"
 #include "hardware.h" 
 #include "termlib.h"
+
+#include <unistd.h>
+#define MS2US(t)        ( (t) * 1000 )
+
+//int usleep(useconds_t usec);
+
 
 int switchcase (char bit, char puerto);
 //cambia el estado del bit al opuesto
@@ -47,10 +55,19 @@ int main(int argc, char** argv)
         ExportPin(pinesvaluestring[i]);
     }
     
+    usleep(MS2US(1000));
+	
     for (int i=0; i<8; i++)
     {
         DirectionOutPin(pinesdirection[i]);
     }
+
+    clrscr();
+
+   printf("Program is running...\n");
+
+
+
             
     while (((c=getchar())!='q')||(error==-1)) 
     {
@@ -134,7 +151,9 @@ int main(int argc, char** argv)
     {
         UnExportPin(pinesvaluestring[i]);
     }
-    
+    clrscr();
+    printf("Program finished\n");
+
     changemode (BUFFERED_ON); 
     return (EXIT_SUCCESS); 
 }
